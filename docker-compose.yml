@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  rabbitmqServer:
+    container_name: rabbitmqServer
+    image: "rabbitmq:3.6-management-alpine"
+    hostname: "rabbitmq-host"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "pass"
+    networks:
+      - rabbitnetwork
+
+  meter:
+    build:
+      context: ./meter
+      dockerfile: Dockerfile
+    container_name: meter
+    depends_on:
+      - rabbitmqServer
+      - simulator
+    ports:
+      - 7000:7000
+    environment:
+      RABBITMQ_USERNAME: "admin"
+      RABBITMQ_PASSSWORD: "pass"
+      RABBITMQ_HOST: rabbitmqServer
+      RABBITMQ_QUEUE: dataqueue
+      RABBITMQ_ROUTING_KEY: dataqueue 
+      RABBITMQ_EXCHANGE: exchange_test
+    networks:
+      - rabbitnetwork
+    restart: always
+
+  simulator:
+    container_name: simulator
+    build:
+      context: ./simulator
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - rabbitmqServer
+    ports:
+      - 8000:8000
+    environment:
+      RABBITMQ_USERNAME: admin
+      RABBITMQ_PASSSWORD: pass
+      RABBITMQ_HOST: rabbitmqServer
+      RABBITMQ_QUEUE: dataqueue
+      RABBITMQ_ROUTING_KEY: dataqueue 
+      RABBITMQ_EXCHANGE: exchange_test
+    networks:
+      - rabbitnetwork
+
+networks:
+  rabbitnetwork:
+    driver: bridge

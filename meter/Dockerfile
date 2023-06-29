@@ -1,0 +1,29 @@
+# Set arguments
+ARG BASE_CONTAINER=python:3.8
+
+# Set the base image. 
+FROM --platform=linux/amd64 $BASE_CONTAINER
+
+# Adds metadata to image.
+LABEL maintainer="Rahul"
+
+# Sets the user name to use when running the image.
+USER root
+RUN apt-get update && apt-get install -y && apt-get clean
+
+# Make a directory for our app
+WORKDIR /meter
+
+# Install dependencies
+COPY requirements.txt .
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copy source code
+COPY ./module ./module
+
+# Run test cases
+RUN python -m unittest
+
+# Run the application
+CMD ["python", "-m", "module"]
