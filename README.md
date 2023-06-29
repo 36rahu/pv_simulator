@@ -1,6 +1,6 @@
 # PV Simulator
 
-Generates simulated photovoltaic (PV) power production and household consumption values.
+Generates simulated photovoltaic (PV) power production and household consumption values and writes the results (in Kilowatts kW) to the disk.
 
 ## Stack
 - Docker
@@ -75,7 +75,7 @@ If hour greater than 14:00
 
 Examples:
 ```bash
-11:30 => 2.5 + (0.01 * 30) => 2.53
+11:30 => 2.5 + (0.01 * 30) => 2.8
 18:13 => 2.0 - (0.01 * 13) => 1.87
 ```
 
@@ -88,7 +88,7 @@ Created sum up value with PV values and meter consumption values. Finally all va
 
 #### Format for CSV file
 ```bash
-timestamp, PV values, meter consumption value, sum up value
+timestamp, pv_value, meter_consumption_value, sumup_value
 ```
 
 RabbitMQ container is where messages flow through RabbitMQ and applications, stored inside a queue. A web browser access to the Dashboard is also provided for RabbitMQ message management and monitoring which can be accessed at `http://localhost:15672`.
