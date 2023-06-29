@@ -31,7 +31,7 @@ class PVSimulator:
         pv_base = self.hour_vs_pv_value.get(current_time.hour, 0)
         if pv_base > 0:
             if pv_base > 14:
-                return round(pv_base + (datetime.now().minute * 0.001), 4), ts
+                return round(pv_base + (datetime.now().minute * 0.01), 4), ts
             else:
-                return round(pv_base - (datetime.now().minute * 0.001), 4), ts
+                return round(pv_base - (datetime.now().minute * 0.01), 4), ts
         return pv_base, ts
