@@ -37,6 +37,7 @@ The Simulator container will read message from the RabbitMQ and parses the messa
 
 The simlilation values are looks like this,
 
+```cmd
 +------+-------+
 | Hour | BasePV|
 +------+-------+
@@ -59,6 +60,7 @@ The simlilation values are looks like this,
 | 20   |  0.2  |
 | 21   |  0.1  |
 +------+-------+
+```
 
 #### Calcultion of PV values
 
@@ -78,9 +80,10 @@ Sum up value = PV value - meter consumption value
 
 Created sum up value with PV values and meter consumption values. Finally all values (timestamp, PV values, meter consumption value, sum up value) stored into a CSV file.
 
-#### FORMAT for CSV file
+#### Format for CSV file
+```bash
 timestamp, PV values, meter consumption value, sum up value
-
+```
 
 RabbitMQ container is where messages flow through RabbitMQ and applications, stored inside a queue. A web browser access to the Dashboard is also provided for RabbitMQ message management and monitoring which can be accessed at `http://localhost:15672`.
 
