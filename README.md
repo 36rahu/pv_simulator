@@ -64,19 +64,25 @@ The simlilation values are looks like this,
 
 #### Calcultion of PV values
 
-If hour less than 14:00 
+If hour less than 14:00
+```bash
     Final PV value = BasePV + (0.01 * Minutes)
+```
 If hour greater than 14:00
+```bash
     Final PV value = BasePV - (0.01 * Minutes)
+```
 
 Examples:
-11:30 = 2.5 + (0.01 * 30) => 2.8
-18:13 = 2.0 - (0.01 * 30) => 1.87
+```bash
+11:30 => 2.5 + (0.01 * 30) => 2.8
+18:13 => 2.0 - (0.01 * 30) => 1.87
+```
 
 #### Calcultion of Sum up value
-
+```bash
 Sum up value = PV value - meter consumption value
-
+```
 
 Created sum up value with PV values and meter consumption values. Finally all values (timestamp, PV values, meter consumption value, sum up value) stored into a CSV file.
 
